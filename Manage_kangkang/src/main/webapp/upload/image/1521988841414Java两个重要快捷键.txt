@@ -1,0 +1,6 @@
+ Ctrl + Shift + T  : 打开jdk或者工作空间中的类的源码
+
+
+Ctrl + Shift + R  : 在工作空间中查找资源
+Ctrl + Shift + X  : 大写
+Ctrl + Shift + Y  :小写

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace：要实现的接口的全类名 -->
+<mapper namespace="com.atguigu.mapper.SkuMapper">
+	<!-- id：必须是接口中方法的方法名，不能随便指定 
+		resultType：接口中方法的返回值类型的全类名 -->
+	<insert id="insert_sku" parameterType="com.atguigu.bean.T_MALL_SKU" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into t_mall_sku(
+			shp_id,
+			kc,
+			jg,
+			sku_mch,
+			kcdz
+		)
+		values
+		(
+			#{shp_id},
+			#{kc},
+			#{jg},
+			#{sku_mch},
+			#{kcdz}
+		)
+	</insert>
+	
+	<insert id="insert_sku_av" parameterType="Map">
+		insert into t_mall_sku_attr_value
+		(
+			shxm_id,
+			shxzh_id,
+			shp_id,
+			sku_id
+		) values 
+		<foreach collection="list_av" item="av" separator=",">
+		(
+			#{av.shxm_id},
+			#{av.shxzh_id},
+			#{shp_id},
+			#{sku_id}
+		)
+		</foreach>
+		
+	</insert>
+</mapper>

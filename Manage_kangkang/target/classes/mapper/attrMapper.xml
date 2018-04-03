@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.mapper.AttrMapper">
+
+	<insert id="insert_attr" useGeneratedKeys="true" keyColumn="id"
+		keyProperty="id" parameterType="com.atguigu.bean.OBJECT_T_MALL_ATTR">
+		insert into t_mall_attr(
+		shxm_mch,
+		flbh2,
+		chjshj
+		)
+		values(
+		#{shxm_mch},
+		#{flbh2},
+		#{chjshj}
+		)
+	</insert>
+
+	<insert id="insert_values">
+		insert into t_mall_value(
+		shxzh,
+		shxm_id,
+		shxzh_mch
+		)
+		values
+
+		<foreach collection="list_value" item="value" separator=",">
+			(
+			#{value.shxzh},
+			#{attr_id},
+			#{value.shxzh_mch}
+			)
+		</foreach>
+	</insert>
+
+	<select id="select_attr_list" resultMap="cutomMap">
+	 	<!-- SELECT a.id a_id ,a.shxm_mch shxm_mch,a.flbh2 flbh2,b.id b_id,b.shxzh shxzh,b.shxzh_mch shxzh_mch FROM t_mall_attr a,t_mall_value b WHERE a.id=b.shxm_id 
+	 	AND a.flbh2 = 18 -->
+	 	SELECT a.id a_id, a.* ,b.id b_id, b.* FROM t_mall_attr a,t_mall_value b WHERE a.id=b.shxm_id 
+	 	AND a.flbh2 = #{flbh2}
+	 </select>
+	 
+	 <!-- 自定义结果集 -->
+	 <!-- 
+	 	type：指定要映射的对象所对应的类的全类名
+	 	id：起一个唯一的标识，以便被引用
+	  -->
+	 <resultMap type="com.atguigu.bean.OBJECT_T_MALL_ATTR" id="cutomMap" autoMapping="true">
+	 	<!-- 映射主键 
+	 		column：指定数据库中的列名
+	 		property：指定要映射的对象的属性名
+	 	-->
+	 	<id column="a_id" property="id"/>
+	 	<!-- 映射其他列 -->
+	 	<!-- <result column="shxm_mch" property="shxm_mch"/>
+	 	<result column="flbh2" property="flbh2"/> -->
+	 	
+	 	<collection property="list_value"  ofType="com.atguigu.bean.T_MALL_VALUE" autoMapping="true">
+	  		<!-- 映射主键 -->
+	  		<id column="b_id" property="id"/>
+	  		<!-- 映射其他列 -->
+	  		<!-- <result column="shxzh" property="shxzh"/>
+	  		<result column="shxzh_mch" property="shxzh_mch"/> -->
+	  	</collection>
+	 	
+	 	
+	<!-- <association  property="list_value"
+		javaType="com.atguigu.bean.T_MALL_VALUE">
+		映射主键
+		<id column="b_id" property="id" />
+		映射其他列
+		<result column="shxzh" property="shxzh" />
+		<result column="shxzh_mch" property="shxzh_mch" />
+	 	</association> -->
+	 </resultMap>
+
+</mapper>

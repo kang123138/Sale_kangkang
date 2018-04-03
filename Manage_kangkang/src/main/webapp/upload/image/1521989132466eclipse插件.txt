@@ -1,0 +1,3 @@
+1.安装easyExplore
+
+1、通过Eclipse的插件安装功能功过http://easystruts.sourceforge.net/eclipse/updates/site.xml 安装插件,如图：help-
